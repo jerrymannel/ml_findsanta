@@ -6,6 +6,9 @@ import numpy as np
 dataProcessed = path.PurePath("dataProcessed")
 dataPostProcessed = path.PurePath("dataPostProcessed")
 
+dataTest = path.PurePath("dataTest")
+dataTestProcessed = path.PurePath("dataTestProcessed")
+
 outputFileList = []
 
 max_mutations = 30
@@ -100,7 +103,7 @@ def convertToBW(imageName, outputImageName):
     cv2.imwrite(outputImageName, image)
 
 
-def main():
+def generateTrainingData():
     for d in os.listdir(dataProcessed):
         if not os.path.exists(dataPostProcessed.joinpath(d)):
             os.mkdir(dataPostProcessed.joinpath(d))
@@ -117,4 +120,17 @@ def main():
         generateTranslations(image)
 
 
-main()
+def generateTestData():
+    images = os.listdir(dataTest)
+    images.sort()
+    for image in images:
+        # 3_8_9.jpg
+        positions = image.split(".jpg")[0].split("_")
+        newImageName = "{}_{}_{}.jpg".format(
+            positions[0], positions[2], positions[1])
+        convertToBW(str(dataTest.joinpath(image)),
+                    str(dataTestProcessed.joinpath(newImageName)))
+
+
+# generateTrainingData()
+generateTestData()
