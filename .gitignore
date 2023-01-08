@@ -104,3 +104,7 @@ dist
 .tern-port
 send.sh
 clean.sh
+imageClassificationModel.tflite.bkp
+Archive.zip
+dataPostProcessed.zip
+dataTestProcessed.zip

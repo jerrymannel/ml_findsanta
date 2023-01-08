@@ -54,14 +54,14 @@ def crop(pageNum, croppedPage):
 
 
 # totalNumberOfPages = 31
-totalNumberOfPages = 3
+totalNumberOfPages = 4
 height, width = 2799, 2812
 rowHeight = int(height / 15) - 1
 colWidth = int(width / 15)
 print(rowHeight, colWidth)
 
 i = 1
-for i in range(totalNumberOfPages):
-    croppedPage = getPage(i + 1)
-    crop(i+1, croppedPage)
-    i += 1
+# for i in range(totalNumberOfPages):
+croppedPage = getPage(4)
+crop(4, croppedPage)
+# i += 1
