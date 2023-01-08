@@ -108,3 +108,5 @@ imageClassificationModel.tflite.bkp
 Archive.zip
 dataPostProcessed.zip
 dataTestProcessed.zip
+data/*
+dataTest/*
