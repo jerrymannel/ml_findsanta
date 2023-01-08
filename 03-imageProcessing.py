@@ -3,8 +3,8 @@ import os
 import cv2
 import numpy as np
 
+dataClassified = path.PurePath("dataClassified")
 dataProcessed = path.PurePath("dataProcessed")
-dataPostProcessed = path.PurePath("dataPostProcessed")
 
 dataTest = path.PurePath("dataTest")
 dataTestProcessed = path.PurePath("dataTestProcessed")
@@ -104,16 +104,16 @@ def convertToBW(imageName, outputImageName):
 
 
 def generateTrainingData():
-    for d in os.listdir(dataProcessed):
-        if not os.path.exists(dataPostProcessed.joinpath(d)):
-            os.mkdir(dataPostProcessed.joinpath(d))
-    for d in os.listdir(dataProcessed):
+    for d in os.listdir(dataClassified):
+        if not os.path.exists(dataProcessed.joinpath(d)):
+            os.mkdir(dataProcessed.joinpath(d))
+    for d in os.listdir(dataClassified):
         letter = d.split("_")[0]
-        for image in os.listdir(dataProcessed.joinpath(d)):
-            convertToBW(str(dataProcessed.joinpath(d).joinpath(image)),
-                        str(dataPostProcessed.joinpath(d).joinpath(letter + ".jpg")))
+        for image in os.listdir(dataClassified.joinpath(d)):
+            convertToBW(str(dataClassified.joinpath(d).joinpath(image)),
+                        str(dataProcessed.joinpath(d).joinpath(letter + ".jpg")))
             outputFileList.append(
-                str(dataPostProcessed.joinpath(d).joinpath(letter + ".jpg")))
+                str(dataProcessed.joinpath(d).joinpath(letter + ".jpg")))
 
     for image in outputFileList:
         print("Generating{} - ".format(image))
@@ -125,12 +125,10 @@ def generateTestData():
     images.sort()
     for image in images:
         # 3_8_9.jpg
-        positions = image.split(".jpg")[0].split("_")
-        newImageName = "{}_{}_{}.jpg".format(
-            positions[0], positions[2], positions[1])
+        newImageName = image.split(".jpg")[0].split("_")
         convertToBW(str(dataTest.joinpath(image)),
                     str(dataTestProcessed.joinpath(newImageName)))
 
 
-# generateTrainingData()
+generateTrainingData()
 generateTestData()
