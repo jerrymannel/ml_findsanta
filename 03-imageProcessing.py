@@ -124,11 +124,13 @@ def generateTestData():
     images = os.listdir(dataTest)
     images.sort()
     for image in images:
+        if image.count("jpg") == 0:
+            continue
         # 3_8_9.jpg
-        newImageName = image.split(".jpg")[0].split("_")
+        newImageName = image.split(".jpg")[0]
         convertToBW(str(dataTest.joinpath(image)),
-                    str(dataTestProcessed.joinpath(newImageName)))
+                    str(dataTestProcessed.joinpath(image)))
 
 
-generateTrainingData()
+# generateTrainingData()
 generateTestData()
