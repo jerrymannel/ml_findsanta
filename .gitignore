@@ -111,3 +111,8 @@ dataTestProcessed.zip
 data/*
 dataTest/*
 dataTestProcessed/*
+bin
+lib
+share
+pages/*
+pages copy/
